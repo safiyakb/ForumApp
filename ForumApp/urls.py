@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from quora.views import signup, signin,signout, dashboard, questions,discussion,upvote
+from quora.views import signup, signin,signout, dashboard, questions,discussion,upvote, delete_questions, delete_answers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,7 +24,9 @@ urlpatterns = [
     path('signout/',signout),
     path('dashboard/',dashboard),
     path('questions/',questions),
+    path('delete_questions/<int:question_id>/', delete_questions),
     path('discussion/<int:question_id>/',discussion),
     path('upvote/<int:answer_id>/',upvote),
+    path('delete_answers/<int:answer_id>/',delete_answers),
 
 ]

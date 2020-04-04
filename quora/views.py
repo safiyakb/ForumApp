@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from quora.models import Question, Answer, Upvote
@@ -46,8 +46,10 @@ def questions(request):
 			author=request.user
 			)
 		return redirect("/dashboard/")
+
 	all_questions = Question.objects.all().order_by('-timestamp')
 	return render(request, "question.html", {"all_questions":all_questions})
+
 
 def discussion(request, question_id):
 	question = Question.objects.get(pk=question_id)
@@ -63,6 +65,7 @@ def discussion(request, question_id):
 	all_answers = Answer.objects.filter(question=question_id)
 	return render(request, "discussion.html", {"question":question, "all_answers":all_answers})
 
+
 def upvote(request, answer_id):
 	answer = Answer.objects.get(pk=answer_id)
 	upvotes = Upvote.objects.filter(reader=request.user, answer=answer)
@@ -72,3 +75,19 @@ def upvote(request, answer_id):
 		upvote = Upvote.objects.filter(reader=request.user, answer=answer)
 		upvote.save()
 	return redirect(f"/discussion/{answer.question.id}")
+
+def delete_questions(request, question_id):
+	question_instance =  Question.objects.get(pk=question_id)
+	question_instance.delete()
+
+	return redirect("/dashboard/")
+
+def delete_answers(request, answer_id):
+	answer_instance =  Answer.objects.get(pk=answer_id)
+	answer_instance.delete()
+
+	return redirect("/dashboard/")
+
+
+
+

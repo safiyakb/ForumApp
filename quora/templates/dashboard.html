@@ -30,7 +30,11 @@
 						<div class="card-body">
 							<h4 class="card-title">{{ answer.answer }}</h4>
 							<p class="card-text">Answered by: {{ answer.author }} | {{ answer.timestamp }} | Upvotes: {{ answer.upvotes }}</p>
-							<a href="/upvote/{{answer.id}}/" class="btn btn-success">Upvote</a>
+                            <a href="/upvote/{{answer.id}}/" class="btn btn-success">Upvote</a>
+                            {% if answer.author == user %}
+                            <a href="/delete_answers/{{answer.id}}/" class="btn btn-primary">Delete your answer</a>
+                            
+							{% endif %}
 						</div>
 					</div><br>
 				{% endfor %}

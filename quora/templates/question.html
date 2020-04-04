@@ -13,9 +13,10 @@
 						
 						<textarea class="form-control" name="question" placeholder="What is your Question"></textarea>
 					</div>
-					<button type="submit" class="btn btn-primary">Ask your Question</button>
+                    <button type="submit" class="btn btn-primary">Ask your Question</button>
+                    <a href="/delete_questions/{{question.id}}/" class="btn btn-primary">Delete</a>
 				</form>
-				<br>
+				<br> 
 				
 				<br>
 				<div class="sub-head ">
@@ -26,7 +27,11 @@
 						<div class="card-body">
 							<h5 class="card-title">{{ question.question }}</h5>
 							<p class="card-text">Asked by: {{ question.author }} | {{ question.timestamp }}</p>
-							<a href="/discussion/{{question.id}}/" class="btn btn-primary">Answer</a>
+                            <a href="/discussion/{{question.id}}/" class="btn btn-primary">Answer</a>
+                            {% if question.author == user %}
+							<a href="/delete_questions/{{question.id}}/" class="btn btn-primary">Delete your question</a>
+							{% endif %}
+                            
 						</div>
 					</div><br>
 				{% endfor %}
