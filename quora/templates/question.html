@@ -1,0 +1,37 @@
+{% extends 'base1.html' %}
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="sub-head ">
+					<h4>Post your Question</h4>
+				</div><br>
+				<form action="/questions/" method="POST">
+					{% csrf_token %}
+					<div class="form-group">
+						
+						<textarea class="form-control" name="question" placeholder="What is your Question"></textarea>
+					</div>
+					<button type="submit" class="btn btn-primary">Ask your Question</button>
+				</form>
+				<br>
+				
+				<br>
+				<div class="sub-head ">
+					<h4>All Questions</h4>
+				</div><br>
+				{% for question in all_questions %}
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">{{ question.question }}</h5>
+							<p class="card-text">Asked by: {{ question.author }} | {{ question.timestamp }}</p>
+							<a href="/discussion/{{question.id}}/" class="btn btn-primary">Answer</a>
+						</div>
+					</div><br>
+				{% endfor %}
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+{% endblock %}
